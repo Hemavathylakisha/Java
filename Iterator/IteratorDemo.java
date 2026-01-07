@@ -100,13 +100,21 @@ public class IteratorDemo {
 //		list.remove(1);
 //		System.out.println(list);
 		List<String> modifiable =
+<<<<<<< HEAD
 			    new ArrayList<>(List.of("A","B","C")); //allows operations while use Arraylist
+=======
+			    new ArrayList<>(List.of("A","B","C")); //read only purpose,not allow any operations
+>>>>>>> d256f7a263565e08bd2e182866e4283427303410
 		String[] arr= {"A","B","C"};
 		List<String> modifiable2 =
 			    new ArrayList<>(Arrays.asList(arr)); //not allow add,remove operations
 		modifiable2.set(0, null);
 		System.out.println(modifiable2);
+<<<<<<< HEAD
 		//modifiable.add("hello"); 
+=======
+		//modifiable.add("hello"); // it performs doubt on this
+>>>>>>> d256f7a263565e08bd2e182866e4283427303410
 		//System.out.println(modifiable);
 		
 	}
