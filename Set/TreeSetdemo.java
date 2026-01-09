@@ -184,34 +184,41 @@ public class TreeSetdemo{
 	            
 	            //Used for comparator
 	            System.out.println("-----------------Comparator Interface used for MultiSort----------");
-	            List<ShopMembers> shopset = new ArrayList<ShopMembers>(
-		        		Arrays.asList(
-		        				new ShopMembers(102,"Barbie",20000.00,26),
-		        				new ShopMembers(104,"Yoga",22000.00,27),
-		        				new ShopMembers(101,"Sweden",24000.00,24),
-		        				new ShopMembers(105,"Franklin",26000.00,23),
-		        				new ShopMembers(103,"Soba",28000.00,22)
-	    	            ));
+//	            List<ShopMembers> shopset = new ArrayList<ShopMembers>(
+//		        		Arrays.asList(
+//		        				new ShopMembers(102,"Barbie",20000.00,26),
+//		        				new ShopMembers(104,"Yoga",22000.00,27),
+//		        				new ShopMembers(101,"Sweden",24000.00,24),
+//		        				new ShopMembers(105,"Franklin",26000.00,23),
+//		        				new ShopMembers(103,"Soba",28000.00,22)
+//	    	            ));
+	            		
+	            	TreeSet<ShopMembers> shopset=new TreeSet<ShopMembers>(new Idsort());	
+	            shopset.add(new ShopMembers(102,"Barbie",20000.00,26));
+	            shopset.add(new ShopMembers(104,"Yoga",22000.00,27));
+	            shopset.add(new ShopMembers(101,"Sweden",24000.00,24));
+	            shopset.add(new ShopMembers(105,"Franklin",26000.00,23));
+	            shopset.add(new ShopMembers(103,"Soba",28000.00,22));
 	            System.out.println(shopset);
-	            //Idsort
-	            System.out.println("---ID Sort---");
-	            Collections.sort(shopset, new Idsort());
-	            System.out.println("After ID Sorting" + shopset);
-	            
-	            //Namesort
-	            System.out.println("---Name Sort---");
-	            Collections.sort(shopset, new Namesort());
-	            System.out.println("After Name Sorting" + shopset);
-	            
-	            //Agesort
-	            System.out.println("---Age Sort---");
-	            Collections.sort(shopset, new Agesort());
-	            System.out.println("After Age Sorting" + shopset);
-	            
-	            //Salarysort
-	            System.out.println("---Salary Sort---");
-	            Collections.sort(shopset, new Salarysort());
-	            System.out.println("After Salary Sorting" + shopset);
+//	            //Idsort
+//	            System.out.println("---ID Sort---");
+//	            Collections.sort(shopset, new Idsort());
+//	            System.out.println("After ID Sorting" + shopset);
+//	            
+//	            //Namesort
+//	            System.out.println("---Name Sort---");
+//	            Collections.sort(shopset, new Namesort());
+//	            System.out.println("After Name Sorting" + shopset);
+//	            
+//	            //Agesort
+//	            System.out.println("---Age Sort---");
+//	            Collections.sort(shopset, new Agesort());
+//	            System.out.println("After Age Sorting" + shopset);
+//	            
+//	            //Salarysort
+//	            System.out.println("---Salary Sort---");
+//	            Collections.sort(shopset, new Salarysort());
+//	            System.out.println("After Salary Sorting" + shopset);
 	        }
 	}
 
