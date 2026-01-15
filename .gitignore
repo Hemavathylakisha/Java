@@ -1,0 +1,11 @@
+# Eclipse
+.metadata/
+.recommenders/
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

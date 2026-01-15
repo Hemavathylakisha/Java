@@ -1,0 +1,81 @@
+package Library;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LibraryService {
+	List<Book> availableBooks=new ArrayList<>();
+	List<User> users=new ArrayList<>();
+	List<Book> issuedBooks=new ArrayList<>();
+	
+	public void addBook(Book book) {
+		availableBooks.add(book);
+		//System.out.println("Book added successfully...");
+	}
+	
+	public void displayavailableBooks() {
+		System.out.println("---- AVAILABLE BOOKS ----");
+        if (availableBooks.isEmpty()) {
+            System.out.println("No books available");
+        }
+		for(Book b:availableBooks) {
+			System.out.println(b);
+			System.out.println("----------------------------------------------------------------------------------------------------------------------------------");
+		}
+	}
+	public void displayissuedBooks() {
+		System.out.println("---- ISSUED BOOKS ----");
+        if (issuedBooks.isEmpty()) {
+            System.out.println("No books issued");
+        }
+		for(Book b:issuedBooks) {
+			System.out.println(b);
+			System.out.println("----------------------------------------------------------------------------------------------------------------------------------");
+		}
+	}
+	public void addUser(User user) {
+		users.add(user);
+		//System.out.println("User added successfully...");
+	}
+	
+	public void searchBookTitle(String title) {
+		boolean found=false;
+		for(Book book:availableBooks) {
+			if(book.getTitle().equalsIgnoreCase(title)) {
+				System.out.println("YES, You found the book");
+				System.out.println(book);
+				found=true;
+			}
+		}
+		if(!found) {
+			System.out.println("Book not found");
+		}
+	}
+	
+	public void issueBook(int bookId) {
+		for (int i = 0; i < availableBooks.size(); i++) {
+            Book book = availableBooks.get(i);
+
+            if (book.getId() == bookId) {
+                issuedBooks.add(book);      // add to issued
+                availableBooks.remove(i);  // remove from available
+                System.out.println("Book issued successfully");
+                return;
+            }
+        }
+        System.out.println("Book not available");
+	}
+	
+	public void returnBook(int bookId) {
+		for (int i = 0; i < issuedBooks.size(); i++) {
+            Book book = issuedBooks.get(i);
+
+            if (book.getId() == bookId) {
+                availableBooks.add(book);  // add back
+                issuedBooks.remove(i);     // remove from issued
+                System.out.println("Book returned successfully");
+                return;
+            }
+        }
+        System.out.println("Invalid book ID or book not issued");
+	}
+}
