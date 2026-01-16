@@ -61,6 +61,7 @@ public class LibraryApp {
 
 			//For display books
 			service.displayavailableBooks();
+			service.displayissuedBooks();
 			
 			//For search book by title
 			System.out.println("-----------------------YOUR SEARCHED RESULT BY TITLE--------------------------");
@@ -71,6 +72,12 @@ public class LibraryApp {
 			service.issueBook(122);
 			service.displayavailableBooks();
 			service.displayissuedBooks();
+			
+			System.out.println();
+			
+			//For Book Request
+			service.requestBook(2,111);
+			service.requestBook(5, 122);
 			
 			System.out.println();
 			//For Book return
