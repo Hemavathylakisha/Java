@@ -1,7 +1,9 @@
 package Library;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class LibraryService {
@@ -10,9 +12,8 @@ public class LibraryService {
 	List<Book> issuedBooks=new ArrayList<>();
 	
 	// FIFO Queue for book requests
-	Queue<BookRequest> requestQueue = new LinkedList<>();
+	Map<Integer, Queue<BookRequest>> requestMap = new HashMap<>();
 
-	
 	public void addBook(Book book) {
 		availableBooks.add(book);
 		//System.out.println("Book added successfully...");
@@ -46,8 +47,20 @@ public class LibraryService {
 	}
 	
 	public void requestBook(int userId, int bookId) {
-        requestQueue.offer(new BookRequest(userId, bookId));
-        System.out.println("Request added for book ID " + bookId);
+		Queue<BookRequest> queue =
+	            requestMap.computeIfAbsent(bookId, k -> new LinkedList<>());
+		// Prevent same user requesting SAME book again
+	    for (BookRequest req : queue) {
+	        if (req.getUserId() == userId) {
+	            System.out.println(
+	                "User " + userId + " has already requested Book ID " + bookId
+	            );
+	            return;
+	        }
+	    }
+        queue.offer(new BookRequest(userId, bookId));
+        System.out.println("Request added for Book ID " + bookId +
+                " by User ID " + userId);
     }
 	
 	public void searchBookTitle(String title) {
@@ -85,15 +98,15 @@ public class LibraryService {
             if (book.getId() == bookId) {
             	 issuedBooks.remove(i);
                 // If someone is waiting in queue for same book
-                if (!requestQueue.isEmpty() &&
-                    requestQueue.peek().getBookId() == bookId) {
+            	 Queue<BookRequest> queue = requestMap.get(bookId);
 
-                    BookRequest next = requestQueue.poll();
-                    issuedBooks.add(book);
+                 if (queue != null && !queue.isEmpty()) {
+                     BookRequest next = queue.poll();
+                     issuedBooks.add(book);
 
-                    System.out.println(
-                        "Book automatically issued to User ID: " + next.getUserId()
-                    );
+                     System.out.println(
+                         "Book automatically issued to User ID: " + next.getUserId()
+                     );
 
                 } else {
                     availableBooks.add(book);

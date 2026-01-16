@@ -70,6 +70,7 @@ public class LibraryApp {
 			System.out.println();
 			//For Book Issue 
 			service.issueBook(122);
+			service.issueBook(101);
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 			
@@ -78,6 +79,7 @@ public class LibraryApp {
 			//For Book Request
 			service.requestBook(2,111);
 			service.requestBook(5, 122);
+			service.requestBook(2,111);
 			
 			System.out.println();
 			//For Book return
