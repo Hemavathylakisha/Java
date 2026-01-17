@@ -1,10 +1,12 @@
 package Library;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 public class LibraryService {
 	List<Book> availableBooks=new ArrayList<>();
@@ -30,6 +32,9 @@ public class LibraryService {
 		}
 	}
 	
+	public void displayUniqueAvailablebooks() {
+		Set<Book> uniquebooks=new HashSet<>(availableBooks);
+	}
 	public void displayissuedBooks() {
 		System.out.println("---- ISSUED BOOKS ----");
         if (issuedBooks.isEmpty()) {
@@ -63,11 +68,25 @@ public class LibraryService {
                 " by User ID " + userId);
     }
 	
-	public void searchBookTitle(String title) {
+	public void searchBookCategory(String category) {
 		boolean found=false;
 		for(Book book:availableBooks) {
-			if(book.getTitle().equalsIgnoreCase(title)) {
-				System.out.println("YES, You found the book");
+			if(book.getCategory().equalsIgnoreCase(category)) {
+				System.out.println("YES, You found the book " + book.getCategory());
+				System.out.println(book);
+				found=true;
+			}
+		}
+		if(!found) {
+			System.out.println("Book not found");
+		}
+	}
+	
+	public void searchBookAuthor(String author) {
+		boolean found=false;
+		for(Book book:availableBooks) {
+			if(book.getAuthor().equalsIgnoreCase(author)) {
+				System.out.println("YES, You found the book with " + book.getAuthor());
 				System.out.println(book);
 				found=true;
 			}

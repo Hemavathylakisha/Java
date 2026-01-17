@@ -63,14 +63,24 @@ public class LibraryApp {
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 			
-			//For search book by title
-			System.out.println("-----------------------YOUR SEARCHED RESULT BY TITLE--------------------------");
-			service.searchBookTitle("Data Science");
+			System.out.println();
+			//For search book by author
+			System.out.println("-----------------------YOUR SEARCHED RESULT BY AUTHOR--------------------------");
+			service.searchBookAuthor("Joel Grus");
+			
+			System.out.println();
+			
+			//For search book by Category
+			System.out.println("-----------------------YOUR SEARCHED RESULT BY CATEGORY--------------------------");
+			service.searchBookCategory("Artificial Intelligence");
 			
 			System.out.println();
 			//For Book Issue 
 			service.issueBook(122);
 			service.issueBook(101);
+			
+			System.out.println();
+			
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 			
