@@ -1,14 +1,12 @@
 package Library;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 public class LibraryApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-			
+			System.out.println("-------------------------LIBRARY MANAGEMENT SYSTEM---------------------------------------------------------------------");
 			LibraryService service=new LibraryService();
 			
 			//for add users
@@ -58,24 +56,38 @@ public class LibraryApp {
 			service.addBook(new Book(128, "Deep Learning", "Ian Goodfellow", "Artificial Intelligence", "2016"));
 			service.addBook(new Book(129, "Data Science", "Joel Grus", "Data Science", "2019"));
 			service.addBook(new Book(130, "Big Data Analytics", "Viktor Mayer", "Data Science", "2018"));
+			service.addBook(new Book(129, "Data Science", "Joel Grus", "Data Science", "2019"));
+			service.addBook(new Book(130, "Big Data Analytics", "Viktor Mayer", "Data Science", "2018"));
+			service.addBook(new Book(101, "Java Fundamentals", "James Gosling", "Programming", "2010"));
+			service.addBook(new Book(102, "Effective Java", "Joshua Bloch", "Programming", "2018"));
 
 			//For display books
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 			
 			System.out.println();
+			
+			//For display unique available books
+			service.displayUniqueAvailablebooks();
+			System.out.println();
+			
 			//For search book by author
 			System.out.println("-----------------------YOUR SEARCHED RESULT BY AUTHOR--------------------------");
-			service.searchBookAuthor("Joel Grus");
+			//service.searchBookAuthor("Joel Grus");  //for list storage
+			Set<Book> aresult = service.searchByAuthor("Joel Grus"); //for map storage
+			System.out.println(aresult);
 			
 			System.out.println();
 			
 			//For search book by Category
 			System.out.println("-----------------------YOUR SEARCHED RESULT BY CATEGORY--------------------------");
-			service.searchBookCategory("Artificial Intelligence");
+			//service.searchBookCategory("Artificial Intelligence"); //for list storage
+			Set<Book> cresult = service.searchByCategory("Artificial Intelligence"); //for map storage
+			System.out.println(cresult);
 			
 			System.out.println();
 			//For Book Issue 
+			service.searchBookById(122);
 			service.issueBook(122);
 			service.issueBook(101);
 			
@@ -93,7 +105,10 @@ public class LibraryApp {
 			
 			System.out.println();
 			//For Book return
+			service.searchBookById(122);
 			service.returnBook(122);
+			
+			System.out.println();
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 	}

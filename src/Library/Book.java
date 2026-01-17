@@ -2,6 +2,7 @@ package Library;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class Book {
 	private int id;
@@ -79,6 +80,26 @@ class Book {
 	
 	public void setYear(String year) {
 		this.year = year;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		return id == other.id;
 	}
 
 
