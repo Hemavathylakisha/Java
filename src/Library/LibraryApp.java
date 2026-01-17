@@ -1,5 +1,9 @@
 package Library;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class LibraryApp {
@@ -60,16 +64,15 @@ public class LibraryApp {
 			service.addBook(new Book(130, "Big Data Analytics", "Viktor Mayer", "Data Science", "2018"));
 			service.addBook(new Book(101, "Java Fundamentals", "James Gosling", "Programming", "2010"));
 			service.addBook(new Book(102, "Effective Java", "Joshua Bloch", "Programming", "2018"));
-
+			
 			//For display books
 			service.displayavailableBooks();
 			service.displayissuedBooks();
-			
 			System.out.println();
 			
 			//For display unique available books
 			service.displayUniqueAvailablebooks();
-			System.out.println();
+			System.out.println(); 
 			
 			//For search book by author
 			System.out.println("-----------------------YOUR SEARCHED RESULT BY AUTHOR--------------------------");
@@ -92,7 +95,7 @@ public class LibraryApp {
 			service.issueBook(101);
 			
 			System.out.println();
-			
+						
 			service.displayavailableBooks();
 			service.displayissuedBooks();
 			
@@ -111,6 +114,55 @@ public class LibraryApp {
 			System.out.println();
 			service.displayavailableBooks();
 			service.displayissuedBooks();
+			
+//			System.out.println("-----------SORTED AVAILABLE BOOKS BY ID USING COMPARABLE-----------");
+//
+//			List<Book> bookList =
+//			        new ArrayList<>(service.availableBookMap.values());
+//
+//			Collections.sort(bookList); // uses compareTo()
+//
+//			for (Book book : bookList) {
+//			    System.out.println(book);
+//			    System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//			}
+			System.out.println("-----------SORTED AVAILABLE BOOKS BY TITLE USING COMPARATOR-----------");
+
+			List<Book> bookList =
+			        new ArrayList<>(service.availableBookMap.values());
+
+			Collections.sort(bookList, new Comparator<Book>() {
+			    @Override
+			    public int compare(Book b1, Book b2) {
+			        return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+			    }
+			}); // uses compare()
+
+			for (Book book : bookList) {
+			    System.out.println(book);
+			    System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			}
+			System.out.println();
+			
+			System.out.println("-----------SORTED AVAILABLE BOOKS BY YEAR USING COMPARATOR-----------");
+			List<Book> bookListbyyear =
+			        new ArrayList<>(service.availableBookMap.values());
+			
+			Collections.sort(bookListbyyear, new Comparator<Book>() {
+			    @Override
+			    public int compare(Book b1, Book b2) {
+			        return Integer.compare(
+			            Integer.parseInt(b1.getYear()),
+			            Integer.parseInt(b2.getYear())
+			        );
+			    }
+			}); // uses compare()
+
+			for (Book book : bookListbyyear) {
+			    System.out.println(book);
+			    System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			}
+
 	}
 
 }

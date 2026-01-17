@@ -1,10 +1,8 @@
 package Library;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-class Book {
+class Book implements Comparable<Book>{
 	private int id;
 	private String title;
 	private String author;
@@ -80,15 +78,12 @@ class Book {
 	
 	public void setYear(String year) {
 		this.year = year;
-	}
-	
-	
+	}	
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -102,13 +97,16 @@ class Book {
 		return id == other.id;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category + ", year="
 				+ year + "]";
 	}	
 	
+	@Override
+	public int compareTo(Book other) {
+	    return Integer.compare(this.id, other.id); // sort by ID
+	}
 	
 }
 
