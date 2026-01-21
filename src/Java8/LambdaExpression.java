@@ -1,0 +1,162 @@
+package Java8;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+class Employee{
+	int id;
+	String name;
+	int salary;
+	public Employee(int id, String name, int salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
+
+}
+//Interface Without Lambda Expression
+
+interface Drawable{  
+    public void draw();  
+}  
+//class Drawimplement implements Drawable {
+//	int width=10;
+//    public void draw() {
+//        System.out.println("Width: "+ width);
+//    }
+//}
+@FunctionalInterface
+interface Greeting {
+    void sayHello(); //only one abstract method
+}
+@FunctionalInterface
+interface Print {
+    void show(String msg); //with one parameter
+}
+@FunctionalInterface
+interface Calculator {
+    int add(int a, int b); //with multi parameter 
+}
+
+@FunctionalInterface
+interface Demo {
+    void show();
+}
+
+public class LambdaExpression{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int width=10;
+	    
+		 Drawable d=new Drawable() {
+			 public void draw() {
+			        System.out.println("Width: "+ width);
+			    }
+		 };
+		 d.draw();
+		 
+		 //Lambda expression with no parameter
+		 Greeting g = () -> System.out.println("Hello using Lambda");
+	     g.sayHello();
+	     
+	     //Lambda with single parameter
+	     Print p = msg -> System.out.println(msg);
+	        p.show("Welcome to Lambda");
+	     
+	    //Lambda with multi parameter
+	      Calculator c = (a, b) -> a + b;
+	      System.out.println(c.add(10, 20));
+	      
+	    //Lambda with return type
+	      Calculator c1 = (a, b) -> {
+	    	    System.out.println("Adding numbers");
+	    	    return a + b;
+	    	};
+	    	System.out.println(c1.add(100, 30));
+	    	
+	    //Lambda with predicate- returns boolean	
+	      Predicate<Integer> isEven = n -> n % 2 == 0;
+	      System.out.println(isEven.test(10)); // true
+	      
+	      Predicate<String> predicate2=(uname)->(uname.contains("K7"))?true:false;
+		  System.out.println(predicate2.test("velavan"));
+	      
+	    //Lambda with Function- returns output
+	      Function<String, Integer> length = s -> s.length();
+	        System.out.println(length.apply("Java"));
+	        
+	   //Lambda with consumer interface - no return
+	        Consumer<String> printer = s -> System.out.println(s);
+	        printer.accept("Hello Consumer");
+	        
+	   //Lambda with supplier interface - no input return values
+	        Supplier<Double> random = () -> Math.random();
+	        System.out.println(random.get());
+	        
+	   //Lambda with collections
+	        //sorting list
+	        List<Integer> list = Arrays.asList(5, 2, 8, 1);
+
+	        Collections.sort(list, (a, b) -> a - b);
+	        System.out.println(list);
+	   
+	    //Lambda with forEach 
+	        list.forEach(e -> System.out.println(e));
+	        
+	     //For method reference
+	        list.forEach(System.out::println);
+	        
+	        //Lambda with runnable - multithreading
+	        Runnable r = () -> System.out.println("Thread running");
+	        new Thread(r).start();
+	        
+	       //final variable access
+	        int x = 10;
+	       // 	x=20;  //compilation error throws while redeclare - restricts final variable in local
+	        Runnable r1 = () -> {
+	            System.out.println(x);
+	        };
+	        
+	        r1.run();
+	        
+	        //LAmbda with interview program
+	        Demo d1 = () -> System.out.println("Lambda + Functional Interface");
+	        d1.show();
+	        
+	        //LAmbda with custom object
+	        List<Employee> elist=new ArrayList<Employee>();
+			elist.add(new Employee(101,"henna", 3456789));
+			elist.add(new Employee(103,"abi", 9889));
+			elist.add(new Employee(108,"liki", 3908789));
+
+			//		Comparator<Employee> com=new Comparator<Employee>() {
+			//			
+			//			@Override
+			//			public int compare(Employee o1, Employee o2) {
+			//				return o1.name.compareTo(o2.name);
+			//			}
+			//		};
+			//		Collections.sort(list,com);
+
+			//		Comparator<Employee> com=(Employee o1, Employee o2)->o1.name.compareTo(o2.name);
+
+			Collections.sort(elist,(Employee o1, Employee o2)->o1.name.compareTo(o2.name));
+
+			for(Employee e:elist) {
+				System.out.println(e);
+			}
+	}
+
+}
