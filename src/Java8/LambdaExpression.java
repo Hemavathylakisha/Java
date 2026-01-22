@@ -3,7 +3,10 @@ package Java8;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -13,6 +16,9 @@ class Employee{
 	int id;
 	String name;
 	int salary;
+	public Employee(int id) {
+		this.id=id;
+	}
 	public Employee(int id, String name, int salary) {
 		super();
 		this.id = id;
@@ -25,6 +31,22 @@ class Employee{
 	}
 
 }
+
+//Method reference usage
+@FunctionalInterface //for static method reference
+interface Email {
+    void send(String name); //only one abstract method
+}
+@FunctionalInterface //for instance method reference
+interface Phone {
+    void msg(String name); //only one abstract method
+}
+
+@FunctionalInterface //for Constructor method reference
+interface EmployeeData {
+	Employee create(int id); //constructor method parameter should same with class constructor
+}
+
 //Interface Without Lambda Expression
 
 interface Drawable{  
@@ -55,7 +77,16 @@ interface Demo {
 }
 
 public class LambdaExpression{
-
+	//static method for implement in method reference
+	public static void share(String s) { 
+		System.out.println(s +"Shared messages sent");
+	}
+	
+	//instance method for implement in method reference
+		public void data(String m) { 
+			System.out.println(m + "Data updated ");
+		}
+		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int width=10;
@@ -90,7 +121,7 @@ public class LambdaExpression{
 	      Predicate<Integer> isEven = n -> n % 2 == 0;
 	      System.out.println(isEven.test(10)); // true
 	      
-	      Predicate<String> predicate2=(uname)->(uname.contains("K7"))?true:false;
+	      Predicate<String> predicate2=(uname)->(uname.contains("sv"))?true:false;
 		  System.out.println(predicate2.test("velavan"));
 	      
 	    //Lambda with Function- returns output
@@ -157,6 +188,57 @@ public class LambdaExpression{
 			for(Employee e:elist) {
 				System.out.println(e);
 			}
+			
+			//For biconsumer - pass two arguments using map
+			Map<Integer,String> map=new HashMap<>();
+			
+			map.put(1, "one");
+			map.put(2, "two");
+			map.put(3, "three");
+			map.put(4, "four");
+			map.put(5, "five");
+			
+			//anonymous class
+			BiConsumer<Integer,String> bi=new BiConsumer<>() {
+				public void accept(Integer k, String v) {
+					System.out.println(k + " = " + v);
+				}
+			};
+			map.forEach(bi);
+			
+			//lambda expression - biconsumer interface
+			BiConsumer<Integer,String> biconsumer=(k,v) -> System.out.println(k+ " = " + v);
+			
+			//way1
+			for(Map.Entry<Integer,String> entry:map.entrySet()) {
+				biconsumer.accept(entry.getKey(),entry.getValue());
+			}
+			
+			//map.forEach(biconsumer); //way2
+			
+			//chaining biconsumer using andThen()
+			BiConsumer<String, String> bc1 =
+			        (a, b) -> System.out.println(a + b);
+
+			BiConsumer<String, String> bc2 =
+			        (a, b) -> System.out.println(a.toUpperCase() + b.toUpperCase());
+
+			bc1.andThen(bc2).accept("java", "8");
+			
+			//Method reference - when different method perform same operation we can use method reference
+			//static method
+			Email mail=LambdaExpression::share;
+			mail.send("Mail : ");
+			
+			//instance method
+			LambdaExpression exp=new LambdaExpression();
+			Phone ob=exp::data;
+			ob.msg("Phone : ");
+			
+			//constructor reference
+			EmployeeData e=Employee::new;
+			Employee obj=e.create(101);
+			System.out.println(obj);
 	}
 
 }
