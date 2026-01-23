@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,8 +17,15 @@ class Employee{
 	int id;
 	String name;
 	int salary;
+	public Employee() {
+	        this.name = "Hema";
+	    }
 	public Employee(int id) {
 		this.id=id;
+	}
+	public Employee(int id,String name) {
+		this.id=id;
+		this.name=name;
 	}
 	public Employee(int id, String name, int salary) {
 		super();
@@ -29,7 +37,9 @@ class Employee{
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
 	}
-
+	void display() {
+        System.out.println("supplier data with default constructor ref : " + name);
+    }
 }
 
 //Method reference usage
@@ -235,10 +245,42 @@ public class LambdaExpression{
 			Phone ob=exp::data;
 			ob.msg("Phone : ");
 			
-			//constructor reference
+			//constructor reference - one parameter
 			EmployeeData e=Employee::new;
 			Employee obj=e.create(101);
 			System.out.println(obj);
+			
+			//constructor reference - two parameter
+			 BiFunction<Integer, String, Employee> bf =
+					 Employee::new;
+
+			 Employee s = bf.apply(101, "Lakisha");
+		     System.out.println(s.id + " " + s.name);
+		     
+		     //constructor reference - function
+		     Function<Integer, Employee> f =
+		                Employee::new;
+
+		     Employee ee = f.apply(1001);
+		        System.out.println(ee.id);
+		        
+		   //constructor reference using list
+		        List<Integer> ids = Arrays.asList(1, 2, 3);
+
+		        List<Employee> emp = new ArrayList<>();
+
+		        ids.forEach(id -> emp.add(new Employee(id))); //lambda expression
+		        
+		     // Using constructor reference function
+		        Function<Integer,Employee> con=Employee::new;
+		        
+		       ids.forEach(id -> emp.add(con.apply(id))); //constructor reference
+		        
+		    //Using default constructor reference supplier
+		        Supplier<Employee> se=Employee::new;
+		        Employee sup_con=se.get();
+		        sup_con.display();
 	}
 
 }
+
