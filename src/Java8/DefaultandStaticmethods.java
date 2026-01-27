@@ -1,0 +1,114 @@
+package Java8;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
+
+@FunctionalInterface
+interface sample{
+	public void data();
+	default void sample() {
+		System.out.println("default method");
+	}
+	static void demo() {
+		System.out.println("static method");
+	}
+}
+class User{
+	 String name;
+	int age;
+	int salary;
+	boolean status;
+	
+	public User(String name, int age, int salary, boolean status) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.salary = salary;
+		this.status = status;
+	}
+	
+}
+class Emp{
+	String name;
+	String password;
+	int age;
+	int salary;
+	public Emp(String name, String password, int age, int salary) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.age = age;
+		this.salary = salary;
+	}
+	
+}
+public class DefaultandStaticmethods {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		User u1=new User("abi",23,50000,false);
+		User u2=new User("hema",35,60000,true);
+		User u3=new User("liki",25,40000,false);
+		User u4=new User("seyon",33,20000,true);
+		
+		//abstract method
+		Predicate<User> ageCheck= n-> n.age >25;
+		System.out.println(ageCheck.test(u4));
+		
+		//default method
+		
+		Predicate<User> statusCheck=n-> n.status;
+		
+		Predicate<User> andResult=ageCheck.and(statusCheck);
+		Predicate<User> orResult=ageCheck.or(statusCheck);
+		Predicate<User> negateResult=statusCheck.negate();
+		
+		System.out.println("and method: " + andResult.test(u2));
+		System.out.println("or method:  " + orResult.test(u3));
+		System.out.println("negate method: " + negateResult.test(u3));
+
+		//static method
+		List<String> list=Arrays.asList("null","ADMIN","User");
+		
+		//list.stream().filter(null).forEach(System.out::println); //throws null pointer exception 
+		
+		list.stream().filter(Predicate.isEqual("null")).forEach(System.out::println); // avoids exceptions
+		
+		//BiPredicate - no static method, only test method of abstract and default methods
+		BiPredicate<Integer, Integer> check=(a,b)->a>b ;
+		
+		System.out.println(check.test(20, 12));
+		
+//		BiPredicate<String,String> c1=(user,pass)->user.equals("hema") && pass.equals("1111");
+//		System.out.println(c1.test("hema","0000"));
+//		System.out.println(c1.test("hema", "1111"));
+//		
+//		BiPredicate<Double,Integer> datacheck=(s,a)->s>50000.00 && a<30;
+//		System.out.println(datacheck.test(61000.20, 25));
+//		System.out.println(datacheck.test(48000.20, 32));
+		
+		
+		Emp e1=new Emp("Abi","111",23,50000);
+		Emp e2=new Emp("Hema","222",35,60000);
+		Emp e3=new Emp("Liki","333",25,40000);
+		Emp e4=new Emp("Seyon","444",33,20000);
+		
+		BiPredicate<Emp,Emp> b1=(u,p)->u.name.equals("Hema") && p.password.equals("222");
+		BiPredicate<Emp,Emp> b2=(u,p)->u.name.startsWith("H") && p.name.endsWith("i");
+//		System.out.println(b1.test(e1, e1));
+//		System.out.println(b2.test(e1, e1));
+		
+		BiPredicate<Emp, Emp> b3=b1.and(b2);
+		System.out.println("and method :"+b3.test(e2, e2));
+		
+		BiPredicate<Emp, Emp> b4=b1.or(b2);
+		System.out.println("or method :"+b4.test(e2, e2));
+		
+		BiPredicate<Emp, Emp> b5=b1.negate();
+		System.out.println("negate method :"+b5.test(e1, e1));
+
+	}
+
+}

@@ -87,6 +87,9 @@ interface Demo {
 }
 
 public class LambdaExpression{
+	final int a=10;
+		
+	
 	//static method for implement in method reference
 	public static void share(String s) { 
 		System.out.println(s +"Shared messages sent");
@@ -165,7 +168,7 @@ public class LambdaExpression{
 	        
 	       //final variable access
 	        int x = 10;
-	       // 	x=20;  //compilation error throws while redeclare - restricts final variable in local
+	        	//x=20;  //compilation error throws while redeclare - restricts final variable in local
 	        Runnable r1 = () -> {
 	            System.out.println(x);
 	        };
