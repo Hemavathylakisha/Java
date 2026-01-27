@@ -2,7 +2,9 @@ package Java8;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @FunctionalInterface
@@ -15,7 +17,7 @@ interface sample{
 		System.out.println("static method");
 	}
 }
-class User{
+class User{ //used for Predicate
 	 String name;
 	int age;
 	int salary;
@@ -30,7 +32,7 @@ class User{
 	}
 	
 }
-class Emp{
+class Emp{ //used for BiPredicate
 	String name;
 	String password;
 	int age;
@@ -41,6 +43,18 @@ class Emp{
 		this.password = password;
 		this.age = age;
 		this.salary = salary;
+	}
+	
+}
+class Stu{ //used for consumer
+	String name;
+	int age;
+	String dept;
+	public Stu(String name, int age, String dept) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.dept = dept;
 	}
 	
 }
@@ -57,7 +71,7 @@ public class DefaultandStaticmethods {
 		Predicate<User> ageCheck= n-> n.age >25;
 		System.out.println(ageCheck.test(u4));
 		
-		//default method
+		//default method in Predicate
 		
 		Predicate<User> statusCheck=n-> n.status;
 		
@@ -69,7 +83,7 @@ public class DefaultandStaticmethods {
 		System.out.println("or method:  " + orResult.test(u3));
 		System.out.println("negate method: " + negateResult.test(u3));
 
-		//static method
+		//static method in Predicate
 		List<String> list=Arrays.asList("null","ADMIN","User");
 		
 		//list.stream().filter(null).forEach(System.out::println); //throws null pointer exception 
@@ -109,6 +123,34 @@ public class DefaultandStaticmethods {
 		BiPredicate<Emp, Emp> b5=b1.negate();
 		System.out.println("negate method :"+b5.test(e1, e1));
 
+		//Consumer - no return , takes input , default methods .andThen() - for chaining process
+		//BiConsumer - has no default methods, takes 2 arguments
+		Stu s1=new Stu("Abi",17,"CSC");
+		Stu s2=new Stu("Hema",25,"COMM");
+		
+		//consumer predefined method
+		Consumer<Stu> c1=(n)->System.out.println(n.name.toUpperCase());
+		Consumer<Stu> c2=(a)->System.out.println(a.age);
+		Consumer<Stu> c3=n->System.out.println(n.dept);
+		c1.accept(s1);
+		c2.accept(s1);
+		c3.accept(s2);
+		
+		//default method
+		Consumer<Stu> res=c1.andThen(c2).andThen(c3);
+		res.accept(s1);
+		
+		//BiConsumer 
+		BiConsumer<Stu,Stu> c4=(n,d)->System.out.println("Name : "+ n.name + "  Department : "+ d.dept);
+		BiConsumer<Stu,Stu> c5=(n,d)->System.out.println("Name : "+ n.name + "  Age : "+ d.age);
+		c4.accept(s1, s2);
+		c5.accept(s1, s2);
+		
+		//BiConsumer default method
+		BiConsumer<Stu,Stu> result=c4.andThen(c5);
+		result.accept(s1, s2);
+	
 	}
+	
 
 }
