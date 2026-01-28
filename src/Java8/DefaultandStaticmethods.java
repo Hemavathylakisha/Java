@@ -3,8 +3,10 @@ package Java8;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @FunctionalInterface
@@ -150,6 +152,34 @@ public class DefaultandStaticmethods {
 		BiConsumer<Stu,Stu> result=c4.andThen(c5);
 		result.accept(s1, s2);
 	
+		//Function - take input, return output, Function - default method (andThen, compose)
+		Function<String,Integer> f1=(s)->s.length();
+		Function<Integer,String> f2=(s)->"Length :" + s;
+		
+		//Function - default method for andThen
+		Function<String,String> funres=f1.andThen(f2);  //andThen - performs f1 and then f2
+		System.out.println(funres.apply("   Java   "));
+		
+		//Function - default method for compose
+		Function<String,Integer> f3=(s)->s.length();
+		Function<String,String> f4=(s)-> s.trim();
+		
+		Function<String,Integer> comres=f3.compose(f4); //compose - performs f2 and then f1
+		System.out.println(comres.apply("   Java    "));
+		
+		//Convert string "50678.00" to double 6789.00
+		Function<String,Double> StringtoDouble= s-> Double.parseDouble(s); 
+		
+		Function<Double,Double> Doubledisplay= d -> d % 1000000;
+		
+		Function<String,Double> doubleresult=StringtoDouble.andThen(Doubledisplay);
+		Function<String,Double> doubleresult1=Doubledisplay.compose(StringtoDouble);
+		System.out.println("Using andThen : " + doubleresult.apply("50678.00"));
+		System.out.println("Using compose : " + doubleresult1.apply("43623.00"));
+		
+		//BiFunction - takes 2 input and return output, pass 3 arguments - no default and static methods, only one abstract method
+		BiFunction<String,String,String> bf=(a,b) -> "Fullname : " + a + " " + b ;
+		System.out.println(bf.apply("Hemavathy", "Lakisha"));
 	}
 	
 
