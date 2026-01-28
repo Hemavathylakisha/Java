@@ -167,6 +167,10 @@ public class DefaultandStaticmethods {
 		Function<String,Integer> comres=f3.compose(f4); //compose - performs f2 and then f1
 		System.out.println(comres.apply("   Java    "));
 		
+		//static method in Function Interface
+		Function<String, String> f5=Function.identity();
+		System.out.println(f5.apply("hello"));
+				
 		//Convert string "50678.00" to double 6789.00
 		Function<String,Double> StringtoDouble= s-> Double.parseDouble(s); 
 		
