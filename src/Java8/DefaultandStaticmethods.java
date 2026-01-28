@@ -177,10 +177,22 @@ public class DefaultandStaticmethods {
 		System.out.println("Using andThen : " + doubleresult.apply("50678.00"));
 		System.out.println("Using compose : " + doubleresult1.apply("43623.00"));
 		
-		//BiFunction - takes 2 input and return output, pass 3 arguments - no default and static methods, only one abstract method
+		//BiFunction - takes 2 input and return output, pass 3 arguments - andThen default method and no static methods, only one abstract method
 		BiFunction<String,String,String> bf=(a,b) -> "Fullname : " + a + " " + b ;
 		System.out.println(bf.apply("Hemavathy", "Lakisha"));
+		
+		BiFunction<Double,Integer,Double> bf1= (a,b) -> a * b;
+		System.out.println(bf1.apply(1234.89, 3457));
+		
+		
+		//BiFunction - Default method - andThen() it perform one BiFunction and one Function only will return the output
+		BiFunction<Integer, Integer, Integer> multiply =(a, b) -> a * b;
+
+        Function<Integer, String> convertToString = s -> "Result: " + s;
+
+        String output = multiply.andThen(convertToString).apply(5, 4);
+
+        System.out.println(output);
 	}
 	
-
 }
