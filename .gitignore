@@ -1,11 +1,4 @@
-# Eclipse
-.metadata/
-.recommenders/
+**/bin/
+.classpath
+.project
 .settings/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
