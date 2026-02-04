@@ -1,9 +1,12 @@
 package Java8;
 
+import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -185,6 +188,27 @@ public class TaskOnStream {
 		//Optional<Double> totalsalary=employees.stream().map(SampleEmployee::getSalary).reduce((a,b)->a+b);
 		Double totalsalary=employees.stream().mapToDouble(SampleEmployee::getSalary).sum();
 		System.out.println("No of Employees total Salary: "+ totalsalary);
+		System.out.println("_______________________________________________________________________________________________________________");
+		
+		
+		//Return as Queue - get employee names 
+		Queue<String> names=employees.stream().map(SampleEmployee::getName).collect(Collectors.toCollection(ArrayDeque::new));
+		System.out.println(names);
+		System.out.println("_______________________________________________________________________________________________________________");
+		//Return as Queue - sort by highest salary in Sample employee
+		Queue<SampleEmployee> highpay=employees.stream().collect(Collectors.toCollection(()->new PriorityQueue<>(Comparator.comparing(SampleEmployee::getSalary).reversed())));
+		System.out.println(highpay.poll());
+		System.out.println("_______________________________________________________________________________________________________________");
+		//Return as Queue - sort by lowest salary in Sample employee
+		Queue<SampleEmployee> lowpay=employees.stream().collect(Collectors.toCollection(()->new PriorityQueue<>(Comparator.comparing(SampleEmployee::getSalary))));
+		System.out.println(lowpay.poll());
+		System.out.println("_______________________________________________________________________________________________________________");
+		//Return as Queue - sort by salary in descending Sample employee
+		Queue<SampleEmployee> descpay=employees.stream().filter(n->n.getDepartment().equalsIgnoreCase("IT")).collect(Collectors.toCollection(()->new PriorityQueue<>(Comparator.comparing(SampleEmployee::getSalary).reversed())));
+		//System.out.println(descpay);
+		while(!descpay.isEmpty()) {
+			System.out.println(descpay.poll());
+		}
 	}
 
 }
