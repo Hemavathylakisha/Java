@@ -11,6 +11,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamInAPImethods {
 
@@ -187,6 +188,34 @@ public class StreamInAPImethods {
 						//findAny
 						Optional<Integer> fa=list.stream().findAny(); //have a doubt with findAny
 						System.out.println(fa);
+						
+						//by using array
+						int[] arr= {1,2,3,4,5,6};
+						Arrays.stream(arr).forEach(System.out::println);
+						
+//						Stream<Integer> sc=Stream.of(null);
+//						System.out.println(sc);
+//						Stream<Integer> sc1=Stream.ofNullable(null);
+//						sc1.forEach(System.out::println);
+						
+						List<String> f=Arrays.asList(
+								"apple","mango","apple","orange","mango");
+						
+						//groupingBy - return map
+						Map<String, Long> r1=f.stream().collect(Collectors.groupingBy(n->n,Collectors.counting()));
+						System.out.println(r1);
+						
+						//joining
+//						String name=f.stream().collect(Collectors.joining());
+//						System.out.println(name);
+//
+//						String name=f.stream().collect(Collectors.joining(","));
+//						System.out.println(name);
+
+						String name=f.stream().collect(Collectors.joining(",", "[", "]"));
+						System.out.println(name);
+						 
+						
 	}	
 	
 
