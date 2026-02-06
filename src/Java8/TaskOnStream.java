@@ -184,6 +184,7 @@ public class TaskOnStream {
 			}
 		};
 		System.out.println("_______________________________________________________________________________________________________________");
+		
 		//Optional<Double> total=	employees.stream().map(n->n.getSalary()).reduce(s1);
 		//Optional<Double> totalsalary=employees.stream().map(SampleEmployee::getSalary).reduce((a,b)->a+b);
 		Double totalsalary=employees.stream().mapToDouble(SampleEmployee::getSalary).sum();
@@ -209,6 +210,13 @@ public class TaskOnStream {
 		while(!descpay.isEmpty()) {
 			System.out.println(descpay.poll());
 		}
-	}
+		
+		//To count characters in a string
+		//mapToObj- converts type of integer to character
+		//chars methods helps to separate characters in ascci code character checking
+		String str="aabccdbda"; 
+		Map<Character,Long> countofstr=str.chars().mapToObj(c->(char) c).collect(Collectors.groupingBy(c->c, Collectors.counting()));
+		System.out.println("Counting of string character: " + countofstr);
+	}	
 
 }

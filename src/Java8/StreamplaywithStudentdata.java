@@ -95,6 +95,7 @@ public class StreamplaywithStudentdata {
 		//joining with parallelstream data into groupingByConcurrent is the best practice
 				Map<String,String>  groupbydeptt=students.parallelStream().collect(Collectors.groupingByConcurrent(Studentdata::getDept,Collectors.mapping(Studentdata::getName, Collectors.joining(", "))));
 				System.out.println(groupbydeptt);
+				
 	}
 
 	}
